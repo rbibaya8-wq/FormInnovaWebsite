@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../features/auth/authSlice";
+import { logout, updateUser } from "../../features/auth/authSlice";
 import {
   FaUser,
   FaEnvelope,
@@ -374,14 +374,25 @@ const styles = {
     animation: "spin 1s linear infinite",
     fontSize: "48px",
     color: "#15BE6A"
-  }
+  },
+  shareButton: {
+  backgroundColor: "#0d6efd",
+  color: "#fff",
+  border: "none",
+  padding: "10px 15px",
+  borderRadius: "8px",
+  cursor: "pointer",
+},
 };
+
 
 export default function Profile() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const myCoursesIds = useSelector((state) => state.enrollments.myCourses);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    const [copiedLink, setCopiedLink] = useState("");
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({
@@ -443,35 +454,35 @@ export default function Profile() {
       username: user?.username || user?.name || ""
     });
   };
+  
 
   const handleSave = () => {
-    // Update user in localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userIndex = users.findIndex(u => u.email === user.email);
-    
-    if (userIndex !== -1) {
-      users[userIndex] = {
-        ...users[userIndex],
-        name: editedUser.name,
-        username: editedUser.username,
-        email: editedUser.email
-      };
-      localStorage.setItem("users", JSON.stringify(users));
-    }
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const userIndex = users.findIndex(u => u.email === user.email);
 
-    // Update current user in auth state
-    const updatedUser = {
-      ...user,
+  if (userIndex !== -1) {
+    users[userIndex] = {
+      ...users[userIndex],
       name: editedUser.name,
       username: editedUser.username,
       email: editedUser.email
     };
-    
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-    window.location.reload(); // Reload to update Redux state
-    
-    setIsEditing(false);
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
+  const updatedUser = {
+    ...user,
+    name: editedUser.name,
+    username: editedUser.username,
+    email: editedUser.email
   };
+
+  localStorage.setItem("user", JSON.stringify(updatedUser));
+
+  dispatch(updateUser(updatedUser));
+
+  setIsEditing(false);
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -511,6 +522,15 @@ export default function Profile() {
       </div>
     );
   }
+  const getProfileLink = () => {
+  const username = user?.username || user?.name;
+  return `${window.location.origin}/profile/${username.toLowerCase()}`;
+};
+const handleShare = () => {
+  const link = getProfileLink();
+  navigator.clipboard.writeText(link);
+  setCopiedLink(link);
+};
 
   return (
     <div style={styles.container}>
@@ -589,11 +609,19 @@ export default function Profile() {
               )}
             </div>
 
+            <div style={{ display: "flex", gap: "10px" }}>
             {!isEditing && (
-              <button onClick={handleEdit} style={styles.editButton}>
-                <FaEdit /> Edit Profile
-              </button>
+                <>
+                <button onClick={handleEdit} style={styles.editButton}>
+                    <FaEdit /> Edit Profile
+                </button>
+
+                <button onClick={handleShare} style={styles.shareButton}>
+                    🔗 Share Profile
+                </button>
+                </>
             )}
+</div>
           </div>
         </div>
       </div>
