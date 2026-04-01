@@ -119,7 +119,7 @@ modules: [
 /* ===================== 3 ===================== */
 {
 id: 3,
-title: "Data Science with Python",
+title: "Data Science with POO",
 image: data,
 
 center: {
@@ -130,7 +130,7 @@ center: {
   goal: "Prepare students to work as data scientists using real datasets and tools."
 },
 
-instructor: "David Miller",
+instructor: "Salim Miller",
 category: "data-science",
 level: "advanced",
 rating: 4.9,
@@ -143,9 +143,9 @@ description:
 
 modules: [
 {
-  title: "Python Basics",
+  title: "POO Basics",
   lessons: [
-    "Python Introduction",
+    "POO Introduction",
     "Data Types",
     "Libraries Overview"
   ]
@@ -168,6 +168,109 @@ modules: [
 }
 ]
 
+},
+{
+  id: 4,
+  title: "Advanced Machine Learning",
+  image: datalogo,
+
+  center: {
+    name: "AI Institute",
+    logo: datalogo,
+    location: "Casablanca, Morocco",
+    description: "AI Institute focuses on advanced AI and machine learning training.",
+    goal: "Train students to build and deploy advanced ML models in real-world scenarios."
+  },
+
+  instructor: "Nadia El Amrani",
+  category: "machine-learning",
+  level: "advanced",
+  rating: 4.8,
+  reviews: "2.1k",
+  duration: "25h",
+  price: 99,
+
+  description:
+    "Deep dive into advanced machine learning techniques including neural networks, optimization, and model deployment.",
+
+  modules: [
+    {
+      title: "Neural Networks",
+      lessons: [
+        "Perceptron",
+        "Activation Functions",
+        "Backpropagation"
+      ]
+    },
+    {
+      title: "Model Optimization",
+      lessons: [
+        "Loss Functions",
+        "Gradient Descent",
+        "Regularization"
+      ]
+    },
+    {
+      title: "Deployment",
+      lessons: [
+        "Model Saving",
+        "APIs with Flask",
+        "Production Basics"
+      ]
+    }
+  ]
+},
+{
+  id: 6,
+  title: "Full Stack Web Development",
+  image: aiBrain,
+
+  center: {
+    name: "Code Academy",
+    logo: datalogo,
+    location: "Rabat, Morocco",
+    description: "Code Academy provides full-stack web development training.",
+    goal: "Enable students to build complete web applications from frontend to backend."
+  },
+
+  instructor: "Omar Benali",
+  category: "web-development",
+  level: "intermediate",
+  rating: 4.7,
+  reviews: "4.5k",
+  duration: "30h",
+  price: 89,
+
+  description:
+    "Learn how to build modern full-stack web applications using React, Node.js, and databases.",
+
+  modules: [
+    {
+      title: "Frontend Development",
+      lessons: [
+        "HTML & CSS",
+        "JavaScript ES6",
+        "React Basics"
+      ]
+    },
+    {
+      title: "Backend Development",
+      lessons: [
+        "Node.js",
+        "Express.js",
+        "REST APIs"
+      ]
+    },
+    {
+      title: "Database & Deployment",
+      lessons: [
+        "MongoDB",
+        "Authentication",
+        "Deployment"
+      ]
+    }
+  ]
 }
+
 
 ];

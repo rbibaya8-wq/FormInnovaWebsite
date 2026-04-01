@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa"
 import logo from "../assets/images/logo.jpeg"
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 export default function Navbar(){
     const [focus, setFocus] = useState(false);
     const [active, setActive] = useState("");
+    const { isAuthenticated } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate=useNavigate()
+
+    const handleLogout = () => {
+      dispatch(logout());
+    };
 
     return (
         <nav style={styles.nav}>
@@ -54,18 +63,48 @@ export default function Navbar(){
             onMouseEnter={() => setActive("courses")}
             onMouseLeave={() => setActive("")}
             >Courses</Link>
+            
 
             </div>
 
             <div style={styles.actions}>
+                {isAuthenticated ? (
                 <div style={styles.auth}>
-                    <Link to="/login" style={styles.link}>Login</Link>
-                    <Link to="/register" style={styles.registerBtn}>Register</Link>
+                <Link
+                to="/student/my-courses"
+                style={{
+                  ...styles.link,
+                  ...(active === "mycourses" ? styles.activeLink : {})
+                }}
+                onMouseEnter={() => setActive("mycourses")}
+                onMouseLeave={() => setActive("")}
+              >
+                My Courses
+              </Link>
+                  <button onClick={handleLogout} style={styles.registerBtn}>
+                Logout
+              </button>
+              <Link
+              to="/student/dashboard"
+              style={styles.link}
+              onMouseEnter={() => setActive("dashboard")}
+              onMouseLeave={() => setActive("")}
+            >
+              Dashboard
+            </Link>
+                  <div 
+  style={styles.userIcon} 
+  onClick={() => navigate("/student/profile")}
+>
+  <FaUser />
+</div>
                 </div>
-                <div style={styles.userIcon}>
-                    <FaUser />
-                    
+              ) : (
+                <div style={styles.auth}>
+                  <Link to="/login" style={styles.link}>Login</Link>
+                  <Link to="/register" style={styles.registerBtn}>Register</Link>
                 </div>
+              )}
             </div>
         </nav>
     )

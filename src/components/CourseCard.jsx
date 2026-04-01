@@ -1,8 +1,40 @@
 import { FaStar, FaUserGraduate, FaClock } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {  useNavigate } from "react-router-dom";
+import { enrollCourse } from "../features/enrollments/enrollmentSlice";
+
 
 export default function CourseCard({course}){
+    const { isAuthenticated, user } = useSelector((state) => state.auth);
+    const myCourses = useSelector((state) => state.enrollments.myCourses);
+    const navigate=useNavigate();
+    const dispatch=useDispatch();
+  
+  if(!course){
+    return <h2 style={{textAlign:"center", padding: "4rem", color: "#666"}}>Course not found</h2>
+  }
+
+    const handleEnroll = () => {
+  if (!isAuthenticated) {
+    navigate("/login");
+    return;
+  }
+
+  // check already enrolled
+  if (myCourses.includes(course.id)) {
+      navigate(`/course/${course.id}`);
+
+    return;
+  }
+
+  dispatch(
+    enrollCourse({
+      studentId: user.id,
+      courseId: course.id,
+    })
+  );
+  navigate(`/student/learn/${course.id}/0`);
+};
     return(
         <div style={styles.card} >
             <div style={styles.imageContainer}>
@@ -31,7 +63,9 @@ export default function CourseCard({course}){
 
                 <div style={styles.footer}>
                     <p style={styles.price}>${course.price}</p>
-                    <Link to={`/course/${course.id}`} style={styles.enrollLink}>Details</Link>
+                   <button style={styles.enrollLink} onClick={handleEnroll}>
+  {myCourses.includes(course.id) ? "Continue" : "Enroll"}
+</button>
                 </div>
             </div>
         </div>        

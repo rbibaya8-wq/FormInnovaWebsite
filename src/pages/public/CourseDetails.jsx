@@ -10,29 +10,15 @@ export default function CourseDetails(){
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const course = courses.find(c => c.id === parseInt(id));
-  const {isAuthenticated}=useSelector((state)=>state.auth)
-  const { user } = useSelector((state) => state.auth);
-
+  
   if(!course){
     return <h2 style={{textAlign:"center", padding: "4rem", color: "#666"}}>Course not found</h2>
   }
   
-  const handleEnroll=()=>{
-    if(!isAuthenticated){
-      navigate("/login")
-    }else{
-      dispatch(
-      enrollCourse({
-        studentId: user.id,
-        courseId: course.id,
-      })
-    );
-      navigate(`/student/learn/${course.id}`);
-    }
-  }
+  
 
   return(
-    <div style={styles.container}>
+    <div style={styles.container} >
       {/* Hero Section with Image */}
       <div style={styles.heroSection}>
         <div style={styles.imageWrapper}>
@@ -134,9 +120,6 @@ export default function CourseDetails(){
             <h2 style={styles.price}>${course.price}</h2>
             <p style={styles.priceNote}>One-time payment • Lifetime access</p>
           </div>
-          <button onClick={handleEnroll} style={styles.enrollBtn}>
-            Enroll Now <FaArrowRight style={styles.btnIcon} />
-          </button>
         </div>
       </div>
     </div>

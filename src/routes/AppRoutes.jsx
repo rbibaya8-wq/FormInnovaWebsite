@@ -8,6 +8,8 @@ import Blog from "../pages/public/Blog";
 import Login from "../pages/public/Login";
 import Register from "../pages/public/Register";
 import Dashboard from "../pages/student/Dashboard";
+import MyCourses from "../pages/student/MyCourses";
+import Profile from "../pages/student/Profile";
 
 export default function AppRoutes(){
     return(
@@ -22,6 +24,8 @@ export default function AppRoutes(){
                  <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/student/dashboard" element={<Dashboard/>} />
+                <Route path="/student/my-courses" element={<MyCourses />} />
+                <Route path="/student/profile" element={<Profile />} />
                 </Route>
             </Routes>
         </BrowserRouter>
