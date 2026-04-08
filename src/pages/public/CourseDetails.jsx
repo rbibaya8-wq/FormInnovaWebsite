@@ -122,6 +122,16 @@ export default function CourseDetails(){
           </div>
         </div>
       </div>
+      <button 
+    onClick={() => navigate(`/certificate/${course.id}`)}
+    style={{
+      ...styles.enrollLink,
+      backgroundColor: "#15BE6A",
+      color: "#fff"
+    }}
+  >
+     View Certificate
+  </button>
     </div>
   )
 }

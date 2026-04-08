@@ -11,6 +11,7 @@ import Dashboard from "../pages/student/Dashboard";
 import MyCourses from "../pages/student/MyCourses";
 import Profile from "../pages/student/Profile";
 import PublicProfile from "../pages/student/PublicProfile";
+import Certificate from "../pages/student/Certificate";
 
 export default function AppRoutes(){
     return(
@@ -28,6 +29,8 @@ export default function AppRoutes(){
                 <Route path="/student/my-courses" element={<MyCourses />} />
                 <Route path="/student/profile" element={<Profile />} />
                 <Route path="/profile/:username" element={<PublicProfile />} />
+                <Route path="/certificate/:courseId" element={<Certificate />} />
+
                 </Route>
             </Routes>
         </BrowserRouter>

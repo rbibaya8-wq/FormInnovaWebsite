@@ -5,7 +5,6 @@ import CourseCard from "../../components/CourseCard";
 import {
   FaUser,
   FaBookOpen,
-  FaGraduationCap,
   FaClock,
   FaCertificate,
   FaArrowRight,
